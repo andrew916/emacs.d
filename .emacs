@@ -85,9 +85,8 @@
 (setq scroll-margin 3 scroll-conservatively 10000)
 
 ;; shell
-(setq shell-file-name "/bin/zsh")
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+;; (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+;; (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 (global-set-key (kbd "C-c s") 'eshell)
 
 ;; refresh buffer
@@ -122,6 +121,19 @@
 
 (desktop-save-mode t)
 
+(require 'markdown-mode)
+(setq markdown-command "/usr/local/bin/multimarkdown")
+(setq markdown-split-window-direction 'right)
+(setq split-height-threshold nil)
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(autoload 'gfm-mode "markdown-mode"
+   "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
 (require 'flycheck)
 (global-flycheck-mode)
 
@@ -150,7 +162,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yasnippet desktop+ smex find-file-in-project flycheck auto-complete))))
+    (markdown-mode yasnippet desktop+ smex find-file-in-project flycheck auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
